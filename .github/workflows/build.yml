@@ -31,3 +31,4 @@ jobs:
         uses: stylesuxx/action-gh-release@v0.10.0
         with:
           files: ./bluejay-23/*.hex
+          token: ${{ ACCESS_TOKEN }}
