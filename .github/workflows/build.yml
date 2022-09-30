@@ -24,7 +24,7 @@ jobs:
       - name: Fetch archive
         run: |
           curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o firmware.zip "https://api.github.com/repos/bird-sanctuary/bluejay/actions/artifacts/381934862/zip"
-          unzip bluejay-ci23.zip
+          unzip firmware.zip
           tar -xzvf bluejay-23.tar.gz
           ls
 
