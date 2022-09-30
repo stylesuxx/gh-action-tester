@@ -1,0 +1,35 @@
+name: Testing build
+
+on:
+  push:
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - main
+      - develop
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: apt install unzip
+
+      - name: Fetch archive
+        run: |
+          curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o firmware.zip "https://api.github.com/repos/bird-sanctuary/bluejay/actions/artifacts/381934862/zip"
+          unzip bluejay-ci23.zip
+          tar -xzvf bluejay-23.tar.gz
+          ls
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          files: ./bluejay-23/*.hex
