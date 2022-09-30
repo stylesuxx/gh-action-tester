@@ -26,10 +26,9 @@ jobs:
           curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o firmware.zip "https://api.github.com/repos/bird-sanctuary/bluejay/actions/artifacts/381934862/zip"
           unzip firmware.zip
           tar -xzvf bluejay-23.tar.gz
-          ls
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v0.1.14
+        uses: stylesuxx/action-gh-release@v0.1.0
         with:
           files: ./bluejay-23/*.hex
