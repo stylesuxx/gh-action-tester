@@ -21,10 +21,9 @@ jobs:
       - name: Install dependencies
         run: sudo apt install unzip
 
-      - name: Fetch archive
+      - name: Unzip Archive
         run: |
-          curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o firmware.zip "https://api.github.com/repos/bird-sanctuary/bluejay/actions/artifacts/381934862/zip"
-          unzip firmware.zip
+          unzip bluejay-ci-23.zip
           tar -xzvf bluejay-23.tar.gz
 
       - name: Create Release
