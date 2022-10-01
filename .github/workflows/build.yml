@@ -28,7 +28,10 @@ jobs:
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: stylesuxx/action-gh-release@v0.30.0
+        uses: stylesuxx/action-gh-release@v0.31.0
         with:
           files: ./bluejay-23/*.hex
           token: ${{ secrets.ACCESS_TOKEN }}
+          prerelease: true
+          sequential_upload: true
+          print_debug: true
