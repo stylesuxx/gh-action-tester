@@ -1,0 +1,26 @@
+name: Linting Files
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v2
+
+      - name: Lint soruce files
+        run: python formatter/format.py --lint .
