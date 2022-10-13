@@ -41,6 +41,15 @@ jobs:
           unzip bluejay-ci-23.zip
           tar -xzvf bluejay-23.tar.gz
 
+  release:
+    needs: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check env
+        run: |
+          ls -alh
+
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: stylesuxx/action-gh-release@v0.31.0
