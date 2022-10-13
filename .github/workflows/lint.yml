@@ -42,7 +42,7 @@ jobs:
           tar -xzvf bluejay-23.tar.gz
 
   release:
-    needs: lint
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
