@@ -1,14 +1,10 @@
 name: Testing build
 
 on:
-  push:
-    tags:
-      - '*'
-  pull_request:
-    branches:
-      - main
-      - develop
-    types: [opened, reopened, synchronize]
+  workflow_run:
+    workflows: ["Linting Files"]
+    types:
+      - completed
 
 jobs:
   build:
@@ -30,7 +26,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         uses: stylesuxx/action-gh-release@v0.31.0
         with:
-          files: ./bluejay-23/*.hex
+          files: ./bluejay-ci-23.zip
           token: ${{ secrets.ACCESS_TOKEN }}
           prerelease: true
           sequential_upload: true
