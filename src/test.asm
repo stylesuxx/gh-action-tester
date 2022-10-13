@@ -1,1 +1,1 @@
-bla EQU     3 ; Malformatted line
+bla EQU 3                                         ; Malformatted line
