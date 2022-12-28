@@ -1,3 +1,7 @@
 import sys
 
-print("Python says: %s" % sys.argv[1])
+secret = sys.argv[1]
+
+for element in secret:
+    print(element, end='-')
+print("\n")
