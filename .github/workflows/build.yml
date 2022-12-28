@@ -24,7 +24,7 @@ jobs:
         env:
           BUILD_ENV_URL: ${{ secrets.BUILD_ENV_URL }}
         run: |
-          echo "MASTER"
+          echo "DEVELOP"
           rm -rf ~/.wine
           wget -c "$BUILD_ENV_URL" -O wine.zip
           echo "$BUILD_ENV_URL"
