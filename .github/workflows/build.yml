@@ -1,10 +1,16 @@
-name: Testing build
+
+name: Build Firmware
 
 on:
-  workflow_run:
-    workflows: ["Linting Files"]
-    types:
-      - completed
+  push:
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - master
+      - main
+      - develop
+    types: [opened, reopened, synchronize]
 
 jobs:
   build:
@@ -14,20 +20,11 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: sudo apt install unzip
-
-      - name: Unzip Archive
+      - name: Prepare build environment
+        env:
+          BUILD_ENV_URL: ${{ secrets.BUILD_ENV_URL }}
         run: |
-          unzip bluejay-ci-23.zip
-          tar -xzvf bluejay-23.tar.gz
-
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: stylesuxx/action-gh-release@v0.31.0
-        with:
-          files: ./bluejay-ci-23.zip
-          token: ${{ secrets.ACCESS_TOKEN }}
-          prerelease: true
-          sequential_upload: true
-          print_debug: true
+          echo "MASTER"
+          rm -rf ~/.wine
+          wget -c "$BUILD_ENV_URL" -O wine.zip
+          echo "$BUILD_ENV_URL"
