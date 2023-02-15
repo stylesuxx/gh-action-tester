@@ -5,12 +5,15 @@ on:
   push:
     tags:
       - '*'
-  pull_request:
+  pull_request_target:
     branches:
       - master
       - main
       - develop
-    types: [opened, reopened, synchronize]
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   build:
