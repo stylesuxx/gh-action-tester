@@ -20,6 +20,8 @@ jobs:
                run_id: context.payload.workflow_run.id,
             });
 
+            console.log(allArtifacts.data.artifacts[0]);
+
             const archiveUrl = allArtifacts.data.artifacts[0].archive_download_url
             console.log(archiveUrl);
 
