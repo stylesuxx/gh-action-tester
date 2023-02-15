@@ -7,7 +7,7 @@ on:
       - completed
 
 jobs:
-  download:
+  comment:
     runs-on: ubuntu-latest
     steps:
       - name: 'Comment Artifact link'
@@ -22,7 +22,7 @@ jobs:
             console.log(allArtifacts.data.artifacts[0]);
 
             const suiteId = context.payload.workflow_run.check_suite_id;
-            cibst artifactId = allArtifacts.data.artifacts[0].id;
+            const artifactId = allArtifacts.data.artifacts[0].id;
 
             console.log(suiteId, artifactId);
 
