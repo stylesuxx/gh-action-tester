@@ -19,14 +19,14 @@ jobs:
                repo: context.repo.repo,
                run_id: context.payload.workflow_run.id,
             });
-            console.log(context);
+            console.log(context.payload);
 
             const suiteId = context.payload.workflow_run.check_suite_id;
             const artifactId = allArtifacts.data.artifacts[0].id;
 
             console.log(suiteId, artifactId);
 
-            const repositoryName = context.head_repository.full_name;
+            const repositoryName = context.payload.repository.full_name;
 
             const archiveUrl = `https://github.com/${repositoryName}/suites/${suiteId}/artifacts/${artifactId}`;
 
