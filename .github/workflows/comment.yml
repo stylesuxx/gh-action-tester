@@ -1,10 +1,9 @@
-name: Comment Artifact Link
+name: Add Artifact Link to PR
 
 on:
   workflow_run:
-    workflows: [Build Firmware]
-    types:
-      - completed
+    workflows: ['Build Firmware']
+    types: [completed]
 
 jobs:
   comment:
@@ -30,5 +29,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: pullRequestId,
-              body: `[Download build artifact](${archiveUrl}) (this link is only valid for 90 days)`
+              body: `[Here are the build results](${archiveUrl}) (Artifacts will only be retained for 90 days)`
             });
