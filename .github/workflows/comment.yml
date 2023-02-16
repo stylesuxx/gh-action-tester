@@ -22,10 +22,19 @@ jobs:
           script: |
             console.log(context);
 
+            // Find triggering PR
             const sourceWorkflowId = context.payload.workflow_run.id;
             const headSha = context.payload.workflow_run.head_sha;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            
+            const allPRs = await github.rest.actions.listPullRequests({
+               owner,
+               repo,
+            });
             
             console.log(sourceWorkflowId, headSha);
+            console.log(allPRs);
 
             const repositoryName = context.payload.repository.full_name;
             const suiteId = context.payload.workflow_run.check_suite_id;
@@ -40,8 +49,8 @@ jobs:
 
             const archiveUrl = `https://github.com/${repositoryName}/suites/${suiteId}/artifacts/${artifactId}`;
             await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: owner,
+              repo: repo,
               issue_number: pullRequestId,
               body: `[Here are the build results](${archiveUrl}) (Artifacts will only be retained for 90 days)`
             });
