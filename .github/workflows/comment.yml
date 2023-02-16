@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Get PR information'
-        uses: potiuk/get-workflow-origin@v1_3
+        uses: potiuk/get-workflow-origin@v1_5
         id: source-run-info
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
