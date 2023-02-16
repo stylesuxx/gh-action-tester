@@ -13,9 +13,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            // console.log(context);
-
-            const sourceWorkflowId = context.payload.workflow_run.id;
             const headSha = context.payload.workflow_run.head_sha;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
@@ -30,15 +27,13 @@ jobs:
 
             // Post comment if matching PR has been found
             if(matchingPRs.length > 0) {
-              const pr = matchingPRs[0];
-              const pullRequestId = pr.number;
-
+              const pullRequestId = matchingPRs[0].number;
               const repositoryName = context.payload.repository.full_name;
               const suiteId = context.payload.workflow_run.check_suite_id;
 
               const allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-                 owner: context.repo.owner,
-                 repo: context.repo.repo,
+                 owner,
+                 repo,
                  run_id: context.payload.workflow_run.id,
               });
               const artifactId = allArtifacts.data.artifacts[0].id;
