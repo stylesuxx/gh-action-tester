@@ -28,7 +28,7 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             
-            const allPRs = await github.rest.actions.listPullRequests({
+            const allPRs = await github.rest.pulls.listPullRequests({
                owner,
                repo,
             });
