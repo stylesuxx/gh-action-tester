@@ -22,8 +22,8 @@ jobs:
           script: |
             console.log(context);
 
-            const sourceWorkflowId = context.payload.workflow_run.id:
-            const headSha = context.payload.workflow_run.head_sha:
+            const sourceWorkflowId = context.payload.workflow_run.id;
+            const headSha = context.payload.workflow_run.head_sha;
             
             console.log(sourceWorkflowId, headSha);
 
