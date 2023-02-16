@@ -28,9 +28,10 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             
-            const allPRs = await github.rest.pulls.listPullRequests({
+            const allPRs = await github.rest.pulls.list({
                owner,
                repo,
+               open: true,
             });
             
             console.log(sourceWorkflowId, headSha);
