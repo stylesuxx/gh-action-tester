@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Get PR information'
-        uses: stylesuxx/get-workflow-origin@v1_7
+        uses: stylesuxx/get-workflow-origin@v1_8
         id: source-run-info
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
