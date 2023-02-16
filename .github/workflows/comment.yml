@@ -13,7 +13,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            console.log(context.payload);
+            console.log(context);
             const repositoryName = context.payload.repository.full_name;
             const suiteId = context.payload.workflow_run.check_suite_id;
             const pullRequestId = context.payload.workflow_run.pull_requests[0].number;
