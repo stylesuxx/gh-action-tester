@@ -3,4 +3,4 @@ Nothing to see here - this repository is only used to test github actions before
 
 Test 13
 
-ext test 6
+ext test 7
