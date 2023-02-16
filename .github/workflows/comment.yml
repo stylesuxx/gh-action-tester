@@ -9,6 +9,13 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
+      - name: 'Get PR information'
+        uses: potiuk/get-workflow-origin@v1_3
+        id: source-run-info
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceRunId: ${{ github.event.workflow_run.id }}
+
       - name: 'Comment Artifact Link'
         uses: actions/github-script@v6
         with:
