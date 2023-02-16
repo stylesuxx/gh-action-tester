@@ -36,22 +36,33 @@ jobs:
             
             console.log(sourceWorkflowId, headSha);
             console.log(allPRs);
-
-            const repositoryName = context.payload.repository.full_name;
-            const suiteId = context.payload.workflow_run.check_suite_id;
-            const pullRequestId = context.payload.workflow_run.pull_requests[0].number;
-
-            const allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: context.payload.workflow_run.id,
+            
+            const matchingPRs = allPRs.data.filter((pr) => {
+              console.log(pr);
+              console.log(pr.head);
+              console.log(pr.base);
             });
-            const artifactId = allArtifacts.data.artifacts[0].id;
 
-            const archiveUrl = `https://github.com/${repositoryName}/suites/${suiteId}/artifacts/${artifactId}`;
-            await github.rest.issues.createComment({
-              owner: owner,
-              repo: repo,
-              issue_number: pullRequestId,
-              body: `[Here are the build results](${archiveUrl}) (Artifacts will only be retained for 90 days)`
-            });
+            // Post comment if matching PR has been found
+            if(matchingPRs.length > 0) {
+              const pr = matchingPRs[0];
+              const pullRequestId = context.payload.workflow_run.pull_requests[0].number;
+
+              const repositoryName = context.payload.repository.full_name;
+              const suiteId = context.payload.workflow_run.check_suite_id;
+
+              const allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                 owner: context.repo.owner,
+                 repo: context.repo.repo,
+                 run_id: context.payload.workflow_run.id,
+              });
+              const artifactId = allArtifacts.data.artifacts[0].id;
+
+              const archiveUrl = `https://github.com/${repositoryName}/suites/${suiteId}/artifacts/${artifactId}`;
+              await github.rest.issues.createComment({
+                owner: owner,
+                repo: repo,
+                issue_number: pullRequestId,
+                body: `[Here are the build results](${archiveUrl}) (Artifacts will only be retained for 90 days)`
+              });
+            }
