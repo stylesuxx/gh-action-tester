@@ -15,12 +15,12 @@ jobs:
           script: |
             // console.log(context);
 
-            // Find triggering PR
             const sourceWorkflowId = context.payload.workflow_run.id;
             const headSha = context.payload.workflow_run.head_sha;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            
+
+            // Find triggering PR in all open PRs
             const allPRs = await github.rest.pulls.list({
                owner,
                repo,
