@@ -21,6 +21,12 @@ jobs:
         with:
           script: |
             console.log(context);
+
+            const sourceWorkflowId = context.payload.workflow_run.id:
+            const headSha = context.payload.workflow_run.head_sha:
+            
+            console.log(sourceWorkflowId, headSha);
+
             const repositoryName = context.payload.repository.full_name;
             const suiteId = context.payload.workflow_run.check_suite_id;
             const pullRequestId = context.payload.workflow_run.pull_requests[0].number;
