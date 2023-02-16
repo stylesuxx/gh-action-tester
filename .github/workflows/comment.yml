@@ -9,18 +9,11 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Get PR information'
-        uses: stylesuxx/get-workflow-origin@v1_8
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
-
       - name: 'Comment Artifact Link'
         uses: actions/github-script@v6
         with:
           script: |
-            console.log(context);
+            // console.log(context);
 
             // Find triggering PR
             const sourceWorkflowId = context.payload.workflow_run.id;
@@ -33,19 +26,7 @@ jobs:
                repo,
                open: true,
             });
-            
-            console.log(sourceWorkflowId, headSha);
-            console.log(allPRs);
-            
-            const matchingPRs = allPRs.data.filter((pr) => {
-              /*
-              console.log(pr);
-              console.log(pr.head);
-              console.log(pr.base);
-              */
-              
-              return (pr.head.sha === headSha);
-            });
+            const matchingPRs = allPRs.data.filter((pr) => (pr.head.sha === headSha));
 
             // Post comment if matching PR has been found
             if(matchingPRs.length > 0) {
@@ -69,4 +50,6 @@ jobs:
                 issue_number: pullRequestId,
                 body: `[Here are the build results](${archiveUrl}) (Artifacts will only be retained for 90 days)`
               });
+            } else {
+              console.log("No matching PR found");
             }
