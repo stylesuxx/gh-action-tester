@@ -29,7 +29,6 @@ jobs:
             if(matchingPRs.length > 0) {
               const pullRequestId = matchingPRs[0].number;
               const repositoryName = context.paylo
-    name: A job to say helload.repository.full_name;
               const suiteId = context.payload.workflow_run.check_suite_id;
 
               const allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
@@ -54,10 +53,11 @@ jobs:
             } else {
               console.log("No matching PR found");
             }
+
   comment-action:
     runs-on: ubuntu-latest
     steps:
       - name: Link Artifacts via action
-        uses: stylesuxx/link-artifacts-in-pr-action
+        uses: stylesuxx/link-artifacts-in-pr-action@main
         with:
           whitelist: "[]"
