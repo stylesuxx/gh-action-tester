@@ -53,3 +53,5 @@ jobs:
             } else {
               console.log("No matching PR found");
             }
+  comment-action:
+    uses: stylesuxx/link-artifacts-in-pr-action@main
