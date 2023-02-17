@@ -6,54 +6,6 @@ on:
     types: [completed]
 
 jobs:
-  comment:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Comment Artifact Link'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-
-            // Find triggering PR in all open PRs
-            const headSha = context.payload.workflow_run.head_sha;
-            const allPRs = await github.rest.pulls.list({
-               owner,
-               repo,
-               open: true,
-            });
-            const matchingPRs = allPRs.data.filter((pr) => (pr.head.sha === headSha));
-
-            // Post comment if matching PR has been found
-            if(matchingPRs.length > 0) {
-              const pullRequestId = matchingPRs[0].number;
-              const repositoryName = context.paylo
-              const suiteId = context.payload.workflow_run.check_suite_id;
-
-              const allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-                 owner,
-                 repo,
-                 run_id: context.payload.workflow_run.id,
-              });
-              
-              if(allArtifacts.data.artifacts.length > 0) {
-                const artifactId = allArtifacts.data.artifacts[0].id;
-
-                const archiveUrl = `https://github.com/${repositoryName}/suites/${suiteId}/artifacts/${artifactId}`;
-                await github.rest.issues.createComment({
-                  owner: owner,
-                  repo: repo,
-                  issue_number: pullRequestId,
-                  body: `[Here are the build results](${archiveUrl}) (Artifacts will only be retained for 90 days)`
-                });
-              } else {
-                console.log("Artifact not found");
-              }
-            } else {
-              console.log("No matching PR found");
-            }
-
   comment-action:
     runs-on: ubuntu-latest
     steps:
