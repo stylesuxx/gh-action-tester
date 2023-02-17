@@ -59,5 +59,3 @@ jobs:
     steps:
       - name: Link Artifacts via action
         uses: stylesuxx/link-artifacts-in-pr-action@main
-        with:
-          whitelist: "[]"
