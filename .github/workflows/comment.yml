@@ -11,3 +11,5 @@ jobs:
     steps:
       - name: Link Artifacts via action
         uses: stylesuxx/link-artifacts-in-pr-action@main
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
